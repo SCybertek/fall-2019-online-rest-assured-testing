@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.cybertek</groupId>
+    <artifactId>fall-2019-online-rest-assured-testing</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <build>
+        <plugins>
+            <!-- includes some kind of library / plug in is activated at certain stage of maven build. it is jar file and it will be used For project build
+            this one is helping for building the maven project itself
+            we also had the plugin for report building
+            plugins : change build behavior-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--
+ rest assured dependency :dependencies are libraries -->
+<dependencies>
+    <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+     rest assured is selenium library that we use for API testing automation
+     rest assured has easy syntax! looks like cucumber
+     -->
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <version>4.3.0</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    it is the same with regular junit dependency . but it is a NEWER version of JUNIT
+    and it is n ot getting along well with Cucumber that's why we used regular junit before -->
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.6.2</version>
+        <scope>test</scope>
+    </dependency>
+
+
+</dependencies>
+</project>
