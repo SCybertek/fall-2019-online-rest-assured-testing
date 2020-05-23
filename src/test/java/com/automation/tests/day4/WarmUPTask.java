@@ -1,4 +1,4 @@
-package com.automation.day4;
+package com.automation.tests.day4;
 
 import com.automation.utilities.ConfigurationReader;
 import io.restassured.http.ContentType;

@@ -1,15 +1,12 @@
-package com.automation.day3;
+package com.automation.tests.day3;
 
 
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static io.restassured.RestAssured.*;

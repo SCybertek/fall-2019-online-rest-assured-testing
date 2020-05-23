@@ -1,4 +1,4 @@
-package com.automation.day2;
+package com.automation.tests.day2;
 
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;

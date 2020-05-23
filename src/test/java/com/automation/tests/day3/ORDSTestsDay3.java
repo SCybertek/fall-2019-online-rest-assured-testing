@@ -1,6 +1,5 @@
-package com.automation.day3;
+package com.automation.tests.day3;
 import io.restassured.http.ContentType;
-import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
@@ -11,7 +10,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.Matchers.*;
 
 public class ORDSTestsDay3 {
