@@ -31,7 +31,7 @@ public class WarmUPTask {
 
     @BeforeAll
     public static void setup(){
-        baseURI = ConfigurationReader.getProperty("ORDS_URI");
+        baseURI = ConfigurationReader.getProperty("ORDS.URI");
 
         //we can also move it to properties file
         //this provides ease if server dies and we need to update very class etc.

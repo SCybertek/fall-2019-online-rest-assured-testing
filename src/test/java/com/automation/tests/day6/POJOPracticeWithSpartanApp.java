@@ -7,11 +7,10 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static io.restassured.RestAssured.*; //for baseURI
@@ -74,6 +73,7 @@ public class POJOPracticeWithSpartanApp {
     }
 
     @Test
+    @DisplayName("Retrieve exiting user, update his name and verify that name was updated successfully.")
     public void updateSpartanTest(){
 
         int userToUpdate = 101;
@@ -84,9 +84,9 @@ public class POJOPracticeWithSpartanApp {
 
         Spartan spartan = new Spartan(name, "Female", 1234567890);
 
-        //instead of creating Spartan object over and over why not :
+        //instead of creating Spartan object over and over why not : use setters from our spartan pojo
         //so in here we do not need to enter all params for spartan object!
-
+        //get spartan from web service
         Spartan spartanToUpdate = given().
                                     auth().basic("admin", "admin").
                                     accept(ContentType.JSON).
@@ -119,5 +119,51 @@ public class POJOPracticeWithSpartanApp {
                 get("/spartans/{id}", userToUpdate).prettyPeek().
         then().
                 statusCode(200).body("name", is(name));
+    }
+
+    @Test //patch status code : 204
+    @DisplayName("Verify that user can perform PATCH request")
+    public void patchUserTest1(){
+        //Patch - partial update of existing record
+
+        int userId = 249;
+
+
+        //get list of all spartans:
+        Response response0 = given().accept(ContentType.JSON).when().get("/spartans").prettyPeek();
+        //I cans save them all in an array : this is list of our custom class
+        List<Spartan> allSpartans = response0.jsonPath().getList("", Spartan.class);
+        //collection does not have name
+        //Spartan.class - data type of collection
+        //getList - get JSON body as a list
+
+        //random pick user
+        Random random = new Random();
+        int randomNum = random.nextInt(allSpartans.size());
+
+        int randomId= allSpartans.get(randomNum).getId();
+        System.out.println("NAME BEFORE: " + allSpartans.get(randomNum).getName());
+
+        userId = randomId; //assiging user id to random generated id
+        System.out.println("all spartans = " + allSpartans);
+
+        Map<String, String> update = new HashMap<>();
+        update.put("name", "Aidar");
+        //in pull request ALL properties required : line 85
+        //in patch NO NEED
+        Response response = given().contentType(ContentType.JSON).body(update).
+                when().patch("/spartans/{id}", userId);
+
+        response.then().assertThat().statusCode(204);
+
+        //after we send PATCH request, lets make sure the user has been updated
+        //this is a request to verify that name was updated and status code is correct as well
+
+        given().accept(ContentType.JSON).
+                when().
+                get("/spartans/{id}", userId).prettyPeek().
+                then().
+                assertThat().statusCode(200).body("name", is("Aidar"));
+
     }
 }
