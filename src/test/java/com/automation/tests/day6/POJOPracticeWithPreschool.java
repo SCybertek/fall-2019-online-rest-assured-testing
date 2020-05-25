@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,5 +39,9 @@ public class POJOPracticeWithPreschool {
         Response response = get("/student/{id}", 11613).prettyPeek();
         Student student = response.jsonPath().getObject("students[0]", Student.class);
         System.out.println(student);
+//        System.out.println("########## Second way : not so nice I think ");
+//        List<Student> students = response.jsonPath().getList("students",Student.class);
+//        System.out.println("students as list = " + students);
+
     }
 }
