@@ -38,7 +38,7 @@ public class WarmUPTask {
         //also, sometimes it works in new tests but in old tests if server was different it does not work
         //to prevent that we can create properties file
 
-        //for entrire framework we can have more than 1 properties
+        //for entire framework we can have more than 1 properties
 
     }
     @Test
@@ -89,7 +89,9 @@ public class WarmUPTask {
     //response.path()=> generic path = rest assured will determine
     //ours we know that is Jsonpath thats why we use JsonPath
     //items is collection name
-    //grovy path : find()method from groovy : will return Object
+
+    //groovy path : find()method from groovy : will return Object
+
     //JasonPath is used to get something inside response body //<it> predicate .that will represent collection and will check country_id
     String countryName = response.jsonPath().getString("items.find{it.country_id=='US'}.country_name");
     //saving country name as an object in Map

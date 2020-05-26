@@ -2,10 +2,7 @@ package com.automation.pojos;
 
 import com.google.gson.annotations.SerializedName;
 
-
 import java.util.List;
-import java.util.Map;
-
 
     /**
      * {
