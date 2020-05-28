@@ -1,4 +1,6 @@
 package com.automation.pojos;
+
+
 /**
  * "company": {
  * *         "companyId": 11553,
@@ -15,7 +17,6 @@ package com.automation.pojos;
  * *     }
  */
 public class Company {
-
     private int companyId;
     private String companyName;
     private String title;

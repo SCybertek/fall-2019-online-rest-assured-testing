@@ -1,7 +1,13 @@
 package com.automation.review;
 
 
+import com.automation.pojos.Spartan;
+import com.automation.utilities.ConfigurationReader;
+import com.google.gson.Gson;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +24,12 @@ public class WeatherAPP {
     }
     //static block will execute BEFORE main method
     //when class is loading
+
+    @BeforeAll
+    public static void beforeAll() {
+        baseURI = ConfigurationReader.getProperty("SPARTAN.URI");
+        authentication = basic("admin", "admin");
+    }
 
     public static void main (String [] args) {
        // get("search/?query=san").prettyPeek();
@@ -68,6 +80,32 @@ public class WeatherAPP {
             System.out.printf("Date: %s, Weather state: %s, Temperature %s\n", date, weatherStateName.get(i), temp.get(i));
 
         }
+    }
+
+    // Reverse order --> how we create Java object and send it to the to create a USER
+    @Test
+    public void addUser(){
+        Spartan spartan = new Spartan("Vasil", "Male", 3471222582L);
+        Gson gson = new Gson();
+        String pojoAsJson = gson.toJson(spartan);
+        System.out.println(pojoAsJson);
+        // this is the way how we should create new obj and send it to the server
+        Response response = given().
+                auth().basic("admin", "admin").
+                contentType(ContentType.JSON).
+                body(spartan).
+                when().
+                post("/spartans").prettyPeek();
+        response.then().statusCode(201);//to ensure that user was created
+        int usersId = response.jsonPath().getInt("data.id");
+        System.out.println("Users id :: " + usersId);
+        System.out.println("####DELETE USER####");
+        given().
+                auth().basic("admin", "admin").
+                when().
+                delete("/spartans/{id}", usersId).prettyPeek().
+                then().
+                assertThat().statusCode(204);//to ensure that user was deleted
     }
 
 

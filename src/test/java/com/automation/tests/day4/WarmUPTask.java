@@ -95,7 +95,7 @@ public class WarmUPTask {
     //JasonPath is used to get something inside response body //<it> predicate .that will represent collection and will check country_id
     String countryName = response.jsonPath().getString("items.find{it.country_id=='US'}.country_name");
     //saving country name as an object in Map
-
+                                            //getJasonObject()
     Map<String, Object> countryUS = response.jsonPath().get("items.find{it.country_id=='US'}");
     //collections of Objects : findAll()
     List<String> countryNames = response.jsonPath().getList("items.findAll{it.region_id ==2}.country_name");
